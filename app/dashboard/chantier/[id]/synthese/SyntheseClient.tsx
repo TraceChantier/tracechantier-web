@@ -17,6 +17,7 @@ interface SyntheseIA {
   incidents_semaine?: string[]
   priorites_semaine_prochaine?: string[]
   note_globale?: string
+  periode?: string
 }
 
 interface JournalResume {
