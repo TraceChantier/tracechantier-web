@@ -181,5 +181,5 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     headers.set('X-Photos-Count', String(photosAjoutees))
   }
 
-  return new NextResponse(zipBuffer, { status: 200, headers })
+  return new NextResponse(new Uint8Array(zipBuffer), { status: 200, headers })
 }
