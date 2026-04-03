@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bleu-nuit:      #0D3A6E;
+  --bleu-primaire:  #1B5FA8;
+  --bleu-clair:     #2E8FD4;
+  --texte:          #1A3A5C;
+  --vert:           #2A9D5C;
+  --warning:        #D4820A;
+  --erreur:         #C0392B;
+  --bordure:        #D0E4F4;
+  --fond:           #F0F6FC;
+  --muted:          #9BBAD6;
+
+  --tc-sidebar:      #111827;
+  --tc-page:         #F8F9FA;
+  --tc-card:         #FFFFFF;
+  --tc-blue:         #1B5FA8;
+  --tc-green:        #059669;
+  --tc-amber:        #D97706;
+  --tc-red:          #DC2626;
+  --tc-text-1:       #111827;
+  --tc-text-2:       #4B5563;
+  --tc-text-3:       #9CA3AF;
+  --tc-border:       #E5E7EB;
+  --tc-border-faint: #F3F4F6;
+  --tc-blue-faint:   #EFF6FF;
+  --tc-green-faint:  #ECFDF5;
+  --tc-amber-faint:  #FFFBEB;
+  --tc-red-faint:    #FEF2F2;
+}
+
+body {
+  background: var(--tc-page);
+  color: var(--tc-text-1);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+*:focus-visible { outline: 2px solid var(--tc-blue); outline-offset: 2px; border-radius: 4px; }
+
+/* Hover effects for server components */
+.tc-chantier-row:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07) !important; }
+.tc-action-link:hover  { background: #FFFFFF !important; border-color: rgba(27,95,168,0.3) !important; }
+.tc-breadcrumb:hover   { color: #1B5FA8 !important; }
