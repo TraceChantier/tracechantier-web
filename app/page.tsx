@@ -250,149 +250,39 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          COMMENT ÇA MARCHE
+          VIDÉO
       ══════════════════════════════════════════════════════ */}
-      <section style={{ background: C.bgLight, padding: '96px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.inkXlight, display: 'block', marginBottom: 12 }}>
-              Comment ça marche
+      <section style={{ background: C.ink, padding: '96px 24px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% -10%, rgba(245,158,11,0.05) 0%, transparent 55%)', pointerEvents: 'none' }} />
+        <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative' }}>
+          <div style={{ textAlign: 'center', marginBottom: 40 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: 12 }}>
+              L'app en action
             </span>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: C.ink, letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 14px', maxWidth: 520 }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 14px', maxWidth: 500 }}>
               De la photo terrain au rapport en 30 secondes
             </h2>
-            <p style={{ fontSize: 16, color: C.inkLight, maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>
+            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', maxWidth: 420, margin: '0 auto', lineHeight: 1.7 }}>
               Pas de formation requise. Vos sous-traitants maîtrisent l'app en 2 minutes.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-            {[
-              {
-                num: '01',
-                icon: '📲',
-                titre: 'Le ST tape son code',
-                desc: 'Votre sous-traitant arrive sur le chantier, ouvre l\'app et tape son code à 6 chiffres. En 5 secondes, il est connecté — sans compte, sans mot de passe.',
-                screen: '/screen-st-code.png',
-              },
-              {
-                num: '02',
-                icon: '📸',
-                titre: 'Photo + note vocale',
-                desc: 'Il sélectionne sa zone sur le plan, prend une photo et enregistre une courte note vocale. Même sans internet — tout se synchronise automatiquement.',
-                screen: '/screen-st-zone.png',
-              },
-              {
-                num: '03',
-                icon: '✨',
-                titre: 'Résumé IA instantané',
-                desc: 'Vous recevez un résumé structuré : travaux effectués, matériaux utilisés, incidents, prochaines étapes. L\'IA transforme la note vocale en rapport professionnel.',
-                screen: '/screen-journal.png',
-              },
-            ].map((step, i) => (
-              <div key={i} style={{
-                background: C.bgWhite, borderRadius: 16, overflow: 'hidden',
-                border: `1px solid ${C.border}`,
-                boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
-                display: 'flex', flexDirection: 'column',
-              }}>
-                <div style={{ background: C.borderLight, height: 200, overflow: 'hidden', position: 'relative' }}>
-                  <img src={step.screen} alt={step.titre} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-                  <div style={{ position: 'absolute', top: 12, left: 12, background: C.ink, borderRadius: 8, padding: '3px 10px' }}>
-                    <span style={{ fontSize: 11, fontWeight: 800, color: '#fff', letterSpacing: '0.08em' }}>{step.num}</span>
-                  </div>
-                </div>
-                <div style={{ padding: '22px 22px 26px' }}>
-                  <div style={{ fontSize: 22, marginBottom: 10 }}>{step.icon}</div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: C.ink, margin: '0 0 8px', letterSpacing: '-0.2px' }}>{step.titre}</h3>
-                  <p style={{ fontSize: 14, color: C.inkLight, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════
-          SCREENSHOTS
-      ══════════════════════════════════════════════════════ */}
-      <section style={{ background: C.ink, padding: '96px 24px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% -10%, rgba(245,158,11,0.06) 0%, transparent 55%)', pointerEvents: 'none' }} />
-        <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: 12 }}>
-              L'app en action
-            </span>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 14px', maxWidth: 520 }}>
-              Dashboard entrepreneur + flow ST
-            </h2>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>
-              Tout ce dont votre équipe a besoin, dans une seule app.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gap: 14, alignItems: 'start' }}>
-            {[
-              { src: '/screen-dashboard.png', alt: 'Dashboard entrepreneur', label: 'Dashboard entrepreneur', sub: 'Vue d\'ensemble · Photos · Journaux · Équipe', mt: 0 },
-              { src: '/screen-st-code.png', alt: 'Connexion ST', label: 'Connexion ST', sub: 'Code 6 chiffres · 5 secondes', mt: 24 },
-              { src: '/screen-journal.png', alt: 'Journal IA', label: 'Journal IA', sub: 'Résumé structuré · Incidents · Avancement', mt: 48 },
-            ].map((s, i) => (
-              <div key={i} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 28px rgba(0,0,0,0.35)', marginTop: s.mt }}>
-                <img src={s.src} alt={s.alt} style={{ width: '100%', display: 'block' }} />
-                <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.04)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                  <p style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)', margin: 0 }}>{s.label}</p>
-                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.28)', margin: '2px 0 0' }}>{s.sub}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════
-          FONCTIONNALITÉS
-      ══════════════════════════════════════════════════════ */}
-      <section style={{ background: C.bgWhite, padding: '96px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 60 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.inkXlight, display: 'block', marginBottom: 12 }}>
-              Fonctionnalités
-            </span>
-            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: C.ink, letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto', maxWidth: 480 }}>
-              Tout ce qu'il faut pour documenter sans effort
-            </h2>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
-            {[
-              { icon: '🎙️', titre: 'Journal vocal IA', desc: 'Le ST enregistre une note vocale de 30 secondes. L\'IA la transcrit et génère un résumé professionnel : travaux, matériaux, incidents, avancement.' },
-              { icon: '📸', titre: 'Photos par zone', desc: 'Chaque photo est associée à une zone du plan (fondations, charpente, finition). Filtrez, naviguez, téléchargez tout en ZIP en un clic.' },
-              { icon: '🗓️', titre: 'Synthèse hebdomadaire', desc: 'Chaque lundi, un rapport IA consolide tous les journaux de la semaine — travaux effectués, incidents, retards, priorités à venir.' },
-              { icon: '⏱️', titre: 'Timeline avant/après', desc: 'Glissez le curseur pour comparer l\'état du chantier à n\'importe quelle date. Idéal pour les présentations clients et réunions.' },
-            ].map((f, i) => (
-              <div key={i} style={{
-                borderRadius: 14, padding: '26px 22px',
-                border: `1px solid ${C.border}`,
-                background: C.bgWhite,
-              }}>
-                <div style={{ fontSize: 28, marginBottom: 14 }}>{f.icon}</div>
-                <div style={{ width: 28, height: 3, borderRadius: 2, background: C.ink, marginBottom: 12, opacity: 0.15 }} />
-                <h3 style={{ fontSize: 15, fontWeight: 700, color: C.ink, margin: '0 0 8px', letterSpacing: '-0.2px' }}>{f.titre}</h3>
-                <p style={{ fontSize: 13, color: C.inkLight, lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 10, marginTop: 44 }}>
-            {['Mode hors-ligne', 'Export PDF & CSV', 'Portail client', 'Dashboard web', 'Codes QR partagés', 'Support Canada'].map(tag => (
-              <span key={tag} style={{
-                fontSize: 13, fontWeight: 500, color: C.inkMid,
-                background: C.bgLight, borderRadius: 20,
-                padding: '6px 14px', border: `1px solid ${C.border}`,
-              }}>
-                ✓ {tag}
-              </span>
-            ))}
+          {/* Lecteur vidéo */}
+          <div style={{
+            borderRadius: 16, overflow: 'hidden',
+            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+            background: '#000',
+            aspectRatio: '16/9',
+          }}>
+            <video
+              controls
+              playsInline
+              poster="/video-poster.jpg"
+              style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
+            >
+              <source src="/demo.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
