@@ -281,7 +281,7 @@ export default function Home() {
               preload="metadata"
               style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain', background: '#000' }}
             >
-              <source src="/demo.mp4" type="video/mp4" />
+              <source src="/api/video" type="video/mp4" />
             </video>
           </div>
         </div>
