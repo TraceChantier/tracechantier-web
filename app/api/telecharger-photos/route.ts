@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import JSZip from 'jszip'
 import { createClient } from '@/lib/supabase/server'
+import { checkRateLimit, getClientIp } from '@/lib/rateLimit'
 
 // Next.js App Router — timeout configuré dans next.config via maxDuration
 // Ce handler doit terminer sous 50 secondes.
@@ -39,6 +40,11 @@ async function fetchAvecTimeout(url: string): Promise<ArrayBuffer | null> {
 }
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
+  // --- 0. Rate limiting : max 5 ZIPs / 5 minutes ---
+  if (!checkRateLimit(`dl-photos:${getClientIp(req)}`, 5, 300)) {
+    return NextResponse.json({ error: 'Trop de téléchargements. Réessayez dans quelques minutes.' }, { status: 429 })
+  }
+
   // --- 1. Authentification ---
   const supabase = await createClient()
   const { data: { user }, error: errAuth } = await supabase.auth.getUser()

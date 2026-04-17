@@ -23,6 +23,16 @@ interface Journal {
   profils: { prenom_nom: string } | null
 }
 
+/** Échappe les caractères HTML pour prévenir les injections XSS dans le PDF */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function fmtDate(d: string) {
   return new Date(d).toLocaleDateString('fr-CA', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
@@ -64,11 +74,12 @@ export default function JournalList({
 
   function telechargerPDF(journal: Journal) {
     const r = journal.resume_ia ?? {}
+    // Toutes les données utilisateur passent par escapeHtml() — protection XSS
+    const e = escapeHtml
     const html = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', Arial, sans-serif; max-width: 780px; margin: 48px auto; padding: 0 24px; color: #111827; background: #fff; }
+  body { font-family: Arial, sans-serif; max-width: 780px; margin: 48px auto; padding: 0 24px; color: #111827; background: #fff; }
   .header { border-bottom: 2px solid #1B5FA8; padding-bottom: 16px; margin-bottom: 28px; }
   .header h1 { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 6px; }
   .meta { font-size: 13px; color: #6B7280; }
@@ -79,34 +90,33 @@ export default function JournalList({
   .incident { background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; padding: 8px 12px; border-radius: 6px; font-size: 13px; margin: 4px 0; }
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .footer { margin-top: 48px; font-size: 11px; color: #9CA3AF; border-top: 1px solid #E5E7EB; padding-top: 12px; }
-  @media print {
-    body { margin: 0; padding: 24px; }
-    @page { margin: 20mm; }
-  }
+  @media print { body { margin: 0; padding: 24px; } @page { margin: 20mm; } }
 </style></head><body>
 <div class="header">
   <h1>Journal de chantier</h1>
-  <div class="meta">${chantierNom} · ${fmtDate(journal.date)}${r.equipe ? ` · ${r.equipe}` : ''}</div>
+  <div class="meta">${e(chantierNom)} &middot; ${e(fmtDate(journal.date))}${r.equipe ? ` &middot; ${e(r.equipe)}` : ''}</div>
 </div>
-${r.narrative ? `<div class="section"><div class="section-label">Résumé de la journée</div><p>${r.narrative}</p></div>` : ''}
-${r.travaux?.length ? `<div class="section"><div class="section-label">Travaux effectués</div><ul>${r.travaux.map(t => `<li>${t}</li>`).join('')}</ul></div>` : ''}
+${r.narrative ? `<div class="section"><div class="section-label">R&eacute;sum&eacute; de la journ&eacute;e</div><p>${e(r.narrative)}</p></div>` : ''}
+${r.travaux?.length ? `<div class="section"><div class="section-label">Travaux effectu&eacute;s</div><ul>${r.travaux.map(t => `<li>${e(t)}</li>`).join('')}</ul></div>` : ''}
 <div class="grid">
-${r.meteo ? `<div class="section"><div class="section-label">Météo</div><p>${r.meteo}</p></div>` : ''}
-${r.avancement ? `<div class="section"><div class="section-label">Avancement</div><p>${r.avancement}</p></div>` : ''}
-${r.materiaux?.length ? `<div class="section"><div class="section-label">Matériaux</div><ul>${r.materiaux.map(m => `<li>${m}</li>`).join('')}</ul></div>` : ''}
+${r.meteo ? `<div class="section"><div class="section-label">M&eacute;t&eacute;o</div><p>${e(r.meteo)}</p></div>` : ''}
+${r.avancement ? `<div class="section"><div class="section-label">Avancement</div><p>${e(r.avancement)}</p></div>` : ''}
+${r.materiaux?.length ? `<div class="section"><div class="section-label">Mat&eacute;riaux</div><ul>${r.materiaux.map(m => `<li>${e(m)}</li>`).join('')}</ul></div>` : ''}
 </div>
-${r.incidents?.length ? `<div class="section"><div class="section-label">Incidents</div>${r.incidents.map(i => `<div class="incident">▲ ${i}</div>`).join('')}</div>` : ''}
-${r.prochaines_etapes?.length ? `<div class="section"><div class="section-label">Prochaines étapes</div><ul>${r.prochaines_etapes.map(e => `<li>${e}</li>`).join('')}</ul></div>` : ''}
-<div class="footer">Généré par TraceChantier · ${new Date().toLocaleDateString('fr-CA')}</div>
-<script>window.onload = function() { window.print(); window.onafterprint = function() { window.close(); }; }</script>
+${r.incidents?.length ? `<div class="section"><div class="section-label">Incidents</div>${r.incidents.map(inc => `<div class="incident">&#9650; ${e(inc)}</div>`).join('')}</div>` : ''}
+${r.prochaines_etapes?.length ? `<div class="section"><div class="section-label">Prochaines &eacute;tapes</div><ul>${r.prochaines_etapes.map(step => `<li>${e(step)}</li>`).join('')}</ul></div>` : ''}
+<div class="footer">G&eacute;n&eacute;r&eacute; par TraceChantier &middot; ${e(new Date().toLocaleDateString('fr-CA'))}</div>
 </body></html>`
 
-    // Ouvrir une nouvelle fenêtre avec le contenu formaté et déclencher l'impression
-    // Le navigateur propose "Enregistrer en PDF" comme destination dans la boîte de dialogue d'impression
-    const fenetre = window.open('', '_blank', 'width=900,height=700')
-    if (!fenetre) return
-    fenetre.document.write(html)
-    fenetre.document.close()
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `journal-${journal.date}.html`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
 
   if (journaux.length === 0) {

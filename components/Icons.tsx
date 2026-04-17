@@ -103,3 +103,46 @@ export const GridIcon = (p: IconProps) => i(<>
 export const FilterIcon = (p: IconProps) => i(<>
   <path d="M3 5h14M6 10h8M9 15h2" />
 </>, p)
+
+export const SettingsIcon = (p: IconProps) => i(<>
+  <circle cx="10" cy="10" r="3" />
+  <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42" strokeWidth="1.4" />
+</>, p)
+
+export const TrashIcon = (p: IconProps) => i(<>
+  <path d="M3 6h14M8 6V4h4v2M5 6l1 11a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2l1-11" />
+  <path d="M9 10v4M11 10v4" strokeWidth="1.4" />
+</>, p)
+
+export const PlusIcon = (p: IconProps) => i(<>
+  <path d="M10 4v12M4 10h12" />
+</>, p)
+
+export const RefreshIcon = (p: IconProps) => i(<>
+  <path d="M4 10a6 6 0 1 0 1.5-4" />
+  <path d="M4 4v3h3" />
+</>, p)
+
+export const CopyIcon = (p: IconProps) => i(<>
+  <rect x="8" y="8" width="9" height="9" rx="1.5" />
+  <path d="M12 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h3" />
+</>, p)
+
+export const MapIcon = (p: IconProps) => i(<>
+  <path d="M2 5l6-2 4 2 6-2v12l-6 2-4-2-6 2V5Z" />
+  <path d="M8 3v12M12 5v12" strokeWidth="1.4" opacity=".5" />
+</>, p)
+
+export const ShareIcon = (p: IconProps) => i(<>
+  <circle cx="16" cy="5" r="2" />
+  <circle cx="4" cy="10" r="2" />
+  <circle cx="16" cy="15" r="2" />
+  <path d="M6 10.5l8-4.5M6 9.5l8 4.5" strokeWidth="1.4" />
+</>, p)
+
+export const QrCodeIcon = (p: IconProps) => i(<>
+  <rect x="3" y="3" width="6" height="6" rx="1" />
+  <rect x="11" y="3" width="6" height="6" rx="1" />
+  <rect x="3" y="11" width="6" height="6" rx="1" />
+  <path d="M11 11h2v2h-2zM15 11h2M11 15h2M15 15v2M13 13h4" strokeWidth="1.4" />
+</>, p)

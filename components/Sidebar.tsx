@@ -3,13 +3,13 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { BuildingIcon, UsersIcon, LogOutIcon } from '@/components/Icons'
+import { BuildingIcon, UsersIcon, LogOutIcon, SettingsIcon, PlusIcon } from '@/components/Icons'
 
 const PLAN_LABELS: Record<string, string> = {
-  demarrage: 'Démarrage',
-  maitre: 'Maître',
+  demarrage: 'Entrepreneur solo',
+  maitre: 'PME',
   entreprise: 'Entreprise',
-  gratuit: 'Essai',
+  gratuit: 'Essai gratuit',
   pro: 'Pro',
 }
 
@@ -103,6 +103,24 @@ export default function Sidebar({ profil, userEmail }: SidebarProps) {
           Navigation
         </div>
         <NavItem href="/dashboard" icon={<BuildingIcon size={16} />} label="Chantiers" />
+        <NavItem href="/dashboard/equipe" icon={<UsersIcon size={16} />} label="Équipe & Codes" />
+        {profil.role === 'proprietaire' && (
+          <NavItem href="/dashboard/parametres" icon={<SettingsIcon size={16} />} label="Paramètres" />
+        )}
+
+        {/* Bouton Nouveau chantier */}
+        <div className="px-1 mt-3">
+          <Link
+            href="/dashboard/creer-chantier"
+            className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-600 transition-all w-full"
+            style={{ background: 'rgba(27,95,168,0.35)', color: '#7DB8EC', border: '1px solid rgba(27,95,168,0.3)' }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(27,95,168,0.5)'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(27,95,168,0.35)'; e.currentTarget.style.color = '#7DB8EC' }}
+          >
+            <PlusIcon size={14} />
+            Nouveau chantier
+          </Link>
+        </div>
       </nav>
 
       {/* User */}
