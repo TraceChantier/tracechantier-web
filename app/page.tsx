@@ -1,3 +1,4 @@
+'use client'
 import GrueSVG from '../components/GrueSVG'
 import Link from 'next/link'
 
