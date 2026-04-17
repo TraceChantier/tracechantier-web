@@ -279,7 +279,8 @@ export default function Home() {
               controls
               playsInline
               preload="metadata"
-              style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain', background: '#000' }}
+              poster="/video-poster.svg"
+              style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain', background: '#0F172A' }}
             >
               <source src="/api/video" type="video/mp4" />
             </video>

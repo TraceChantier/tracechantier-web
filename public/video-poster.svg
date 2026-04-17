@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 506" width="900" height="506">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1a2b45"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="rgba(245,158,11,0.07)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fond -->
+  <rect width="900" height="506" fill="url(#bg)"/>
+  <rect width="900" height="506" fill="url(#glow)"/>
+
+  <!-- ── GRUE (centrée, ~180px wide) ── -->
+  <g transform="translate(360, 60)">
+    <!-- Haubans -->
+    <line x1="90" y1="12" x2="168" y2="46" stroke="rgba(255,255,255,0.35)" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="90" y1="12" x2="24"  y2="46" stroke="rgba(255,255,255,0.35)" stroke-width="1.4" stroke-linecap="round"/>
+    <polygon points="90,12 62,46 118,46" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.4"/>
+    <line x1="90" y1="12" x2="90"  y2="46" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Flèche -->
+    <rect x="18" y="46" width="150" height="13" rx="3" fill="#E8EEF4"/>
+    <rect x="18" y="46" width="150" height="4"  rx="2" fill="rgba(255,255,255,0.55)"/>
+    <!-- Mât -->
+    <rect x="82" y="46" width="16" height="138" rx="3" fill="#D0DAE4"/>
+    <rect x="82" y="46" width="5"  height="138" rx="2.5" fill="#E8EEF4"/>
+    <!-- Croisillons -->
+    <line x1="82" y1="70"  x2="98" y2="86"  stroke="#9AAABB" stroke-width="1.8"/>
+    <line x1="98" y1="70"  x2="82" y2="86"  stroke="#9AAABB" stroke-width="1.8"/>
+    <line x1="82" y1="96"  x2="98" y2="112" stroke="#9AAABB" stroke-width="1.8"/>
+    <line x1="98" y1="96"  x2="82" y2="112" stroke="#9AAABB" stroke-width="1.8"/>
+    <line x1="82" y1="122" x2="98" y2="138" stroke="#9AAABB" stroke-width="1.8"/>
+    <line x1="98" y1="122" x2="82" y2="138" stroke="#9AAABB" stroke-width="1.8"/>
+    <!-- Cabine -->
+    <rect x="18" y="50" width="30" height="18" rx="3" fill="#2E8FD4" opacity="0.9"/>
+    <rect x="20" y="52" width="26" height="14" rx="2" fill="#1B5FA8" opacity="0.55"/>
+    <!-- Contrepoids -->
+    <rect x="18" y="38" width="24" height="10" rx="2.5" fill="#A8B8C8"/>
+    <!-- Chariot -->
+    <rect x="124" y="58" width="32" height="22" rx="3.5" fill="#2E8FD4" opacity="0.9"/>
+    <rect x="127" y="61" width="11" height="8"  rx="2" fill="rgba(255,255,255,0.9)"/>
+    <rect x="142" y="61" width="11" height="8"  rx="2" fill="rgba(255,255,255,0.9)"/>
+    <rect x="124" y="74" width="32" height="8"  fill="#2E8FD4" opacity="0.6"/>
+    <!-- Base -->
+    <rect x="70"  y="184" width="50" height="9"  rx="3.5" fill="#A8B8C8" opacity="0.7"/>
+    <rect x="64"  y="192" width="62" height="6"  rx="3" fill="#8A9BAB" opacity="0.45"/>
+    <!-- Câble -->
+    <line x1="140" y1="80" x2="140" y2="250" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+    <!-- Boîte TraceChantier suspendue -->
+    <rect x="100" y="252" width="80" height="36" rx="10" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+    <circle cx="114" cy="270" r="5" fill="#F59E0B"/>
+    <text x="124" y="275" font-family="-apple-system, sans-serif" font-size="13" font-weight="800" fill="white" letter-spacing="-0.3">TraceChantier</text>
+  </g>
+
+  <!-- Titre -->
+  <text x="450" y="330" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="32" font-weight="800" fill="white" text-anchor="middle" letter-spacing="-0.8">Votre chantier virtuel</text>
+  <text x="450" y="362" font-family="-apple-system, 'Segoe UI', sans-serif" font-size="16" fill="rgba(255,255,255,0.45)" text-anchor="middle">Tout est tracé, horodaté, classé — automatiquement.</text>
+
+  <!-- Bouton play -->
+  <circle cx="450" cy="420" r="28" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+  <polygon points="443,410 443,430 465,420" fill="white" opacity="0.9"/>
+</svg>
