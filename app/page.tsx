@@ -4,14 +4,12 @@ import Link from 'next/link'
 
 const CRANE_W = 180
 
-// ── Données plans (sync avec lib/plans.ts de l'app mobile) ───────────────────
 const PLANS = [
   {
     id: 'demarrage',
-    label: 'Entrepreneur solo',
+    label: 'Solo',
     prix: 59,
-    prixAnnuel: 49,  // 590$/an = ~49$/mois
-    couleur: '#5B87B5',
+    prixAnnuel: 49,
     highlight: false,
     badge: null,
     features: [
@@ -23,14 +21,12 @@ const PLANS = [
       'Timeline avant/après',
       'Export PDF',
     ],
-    cta: 'Commencer l\'essai',
   },
   {
     id: 'maitre',
     label: 'PME',
     prix: 149,
-    prixAnnuel: 124,  // 1490$/an
-    couleur: '#1B5FA8',
+    prixAnnuel: 124,
     highlight: true,
     badge: 'Populaire',
     features: [
@@ -44,14 +40,12 @@ const PLANS = [
       'Portail client',
       'Synthèse hebdomadaire IA',
     ],
-    cta: 'Commencer l\'essai',
   },
   {
     id: 'entreprise',
     label: 'Entreprise',
     prix: 249,
-    prixAnnuel: 207,  // 2490$/an
-    couleur: '#0D3A6E',
+    prixAnnuel: 207,
     highlight: false,
     badge: null,
     features: [
@@ -66,7 +60,6 @@ const PLANS = [
       'Synthèse hebdomadaire IA',
       'Support prioritaire',
     ],
-    cta: 'Commencer l\'essai',
   },
 ]
 
@@ -93,24 +86,39 @@ const FAQ = [
   },
 ]
 
+const APP_STORE_URL = 'https://apps.apple.com/app/tracechantier/id6745164842'
+
+// ── Palette centralisée ──────────────────────────────────────────────────────
+const C = {
+  heroFrom:    '#0F172A',
+  heroTo:      '#1a2b45',
+  ink:         '#111827',
+  inkMid:      '#374151',
+  inkLight:    '#6B7280',
+  inkXlight:   '#9CA3AF',
+  border:      '#E5E7EB',
+  borderLight: '#F3F4F6',
+  bgLight:     '#F9FAFB',
+  bgWhite:     '#ffffff',
+  accent:      '#F59E0B',  // ambre — utilisé avec parcimonie
+  accentBg:    'rgba(245,158,11,0.08)',
+  accentBorder:'rgba(245,158,11,0.25)',
+  checkGreen:  '#059669',
+}
+
 export default function Home() {
   return (
-    <main style={{ fontFamily: "'DM Sans', 'Segoe UI', system-ui, sans-serif", overflowX: 'hidden', background: '#fff' }}>
+    <main style={{ fontFamily: "'DM Sans', 'Segoe UI', system-ui, sans-serif", overflowX: 'hidden', background: C.bgWhite }}>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════════
           HERO
-      ═══════════════════════════════════════════════════════ */}
+      ══════════════════════════════════════════════════════ */}
       <section style={{
-        width: '100%',
-        minHeight: '100vh',
-        background: 'linear-gradient(170deg, #071c36 0%, #0D3A6E 55%, #092d5a 100%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px 24px 80px',
-        position: 'relative',
-        overflow: 'hidden',
+        width: '100%', minHeight: '100vh',
+        background: `linear-gradient(165deg, ${C.heroFrom} 0%, ${C.heroTo} 100%)`,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '40px 24px 80px', position: 'relative', overflow: 'hidden',
       }}>
         <style>{`
           * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -120,7 +128,7 @@ export default function Home() {
           .cable {
             position: absolute; top: 82px; left: calc(50% - 1px);
             width: 2px; height: 178px;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 100%);
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
             transform-origin: top center; transform: scaleY(0);
             animation: cableDraw 0.5s ease-out 0.3s forwards;
           }
@@ -130,52 +138,64 @@ export default function Home() {
             animation: boxRise 1.5s cubic-bezier(0.22, 0.88, 0.36, 1) 0.45s forwards;
           }
           .tc-box {
-            background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.15);
             border-radius: 20px; padding: 18px 44px; backdrop-filter: blur(16px);
             white-space: nowrap; display: flex; align-items: center; gap: 14px;
           }
-          .tc-dot { width: 10px; height: 10px; border-radius: 50%; background: #2E8FD4; box-shadow: 0 0 10px rgba(46,143,212,0.9); }
+          .tc-dot { width: 10px; height: 10px; border-radius: 50%; background: #F59E0B; box-shadow: 0 0 10px rgba(245,158,11,0.7); }
           .tc-name { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
-          .tc-name em { font-style: normal; color: #2E8FD4; }
+          .tc-name em { font-style: normal; color: #F59E0B; }
 
           .hero-tagline { text-align: center; margin-top: 4px; opacity: 0; animation: fadeUp 0.7s ease 2.1s forwards; }
-          .hero-tagline h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 800; color: #fff; margin: 0 0 16px; letter-spacing: -0.8px; line-height: 1.12; }
-          .hero-tagline p { font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,0.6); line-height: 1.6; max-width: 460px; margin: 0 auto; }
-          .hero-tagline p strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+          .hero-tagline h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; color: #fff; margin: 0 0 16px; letter-spacing: -0.8px; line-height: 1.12; }
+          .hero-tagline p { font-size: clamp(15px, 2vw, 18px); color: rgba(255,255,255,0.55); line-height: 1.65; max-width: 440px; margin: 0 auto; }
+          .hero-tagline p strong { color: rgba(255,255,255,0.85); font-weight: 600; }
 
           .hero-actions { margin-top: 36px; display: flex; flex-direction: column; align-items: center; gap: 12px; opacity: 0; animation: fadeUp 0.7s ease 2.4s forwards; }
           .btn-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
-          .btn-appstore { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: #071c36; border-radius: 14px; padding: 15px 28px; font-size: 16px; font-weight: 700; text-decoration: none; letter-spacing: -0.2px; transition: opacity 0.15s, transform 0.15s; white-space: nowrap; }
-          .btn-appstore:hover { opacity: 0.9; transform: translateY(-1px); }
-          .btn-login { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.22); color: #fff; border-radius: 14px; padding: 15px 28px; font-size: 16px; font-weight: 600; text-decoration: none; letter-spacing: -0.1px; transition: background 0.15s, transform 0.15s; white-space: nowrap; backdrop-filter: blur(8px); }
-          .btn-login:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
-          .trial-note { font-size: 13px; color: rgba(255,255,255,0.3); }
 
-          .hero-stats { margin-top: 52px; display: flex; gap: 0; opacity: 0; animation: fadeUp 0.7s ease 2.7s forwards; }
-          .hero-stat { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 36px; border-right: 1px solid rgba(255,255,255,0.1); }
+          .btn-appstore {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: #fff; color: #0F172A;
+            border-radius: 12px; padding: 13px 24px;
+            font-size: 15px; font-weight: 700; text-decoration: none;
+            letter-spacing: -0.2px; transition: opacity 0.15s, transform 0.15s;
+            white-space: nowrap; box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+          }
+          .btn-appstore:hover { opacity: 0.92; transform: translateY(-1px); }
+
+          .btn-login {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,0.07); border: 1.5px solid rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.8); border-radius: 12px; padding: 13px 24px;
+            font-size: 15px; font-weight: 500; text-decoration: none;
+            letter-spacing: -0.1px; transition: background 0.15s, transform 0.15s;
+            white-space: nowrap; backdrop-filter: blur(8px);
+          }
+          .btn-login:hover { background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+
+          .trial-note { font-size: 12px; color: rgba(255,255,255,0.28); }
+
+          .hero-stats { margin-top: 56px; display: flex; gap: 0; opacity: 0; animation: fadeUp 0.7s ease 2.7s forwards; }
+          .hero-stat { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 36px; border-right: 1px solid rgba(255,255,255,0.08); }
           .hero-stat:last-child { border-right: none; }
           .hero-stat-val { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -0.5px; line-height: 1; }
-          .hero-stat-val span { color: #2E8FD4; }
-          .hero-stat-lbl { font-size: 13px; color: rgba(255,255,255,0.4); text-align: center; line-height: 1.4; max-width: 110px; }
+          .hero-stat-val span { color: #F59E0B; }
+          .hero-stat-lbl { font-size: 12px; color: rgba(255,255,255,0.35); text-align: center; line-height: 1.5; max-width: 100px; }
 
-          /* Scroll hint */
-          .scroll-hint { margin-top: 48px; opacity: 0; animation: fadeUp 0.7s ease 3.0s forwards; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-          .scroll-arrow { width: 20px; height: 20px; border-right: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2); transform: rotate(45deg); animation: bounce 1.8s ease-in-out 3.5s infinite; }
+          .scroll-hint { margin-top: 52px; opacity: 0; animation: fadeUp 0.7s ease 3.0s forwards; display: flex; flex-direction: column; align-items: center; }
+          .scroll-arrow { width: 18px; height: 18px; border-right: 2px solid rgba(255,255,255,0.18); border-bottom: 2px solid rgba(255,255,255,0.18); transform: rotate(45deg); animation: bounce 1.8s ease-in-out 3.5s infinite; }
           @keyframes bounce { 0%, 100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(5px); } }
-
           @keyframes cableDraw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
           @keyframes boxRise { from { transform: translateX(-50%) translateY(400px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
           @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
           @media (max-width: 480px) {
-            .hero-stat { padding: 0 18px; }
+            .hero-stat { padding: 0 16px; }
             .hero-stat-val { font-size: 20px; }
             .anim-wrap { height: 260px; }
           }
         `}</style>
-
-        {/* Ambient glow */}
-        <div style={{ position: 'absolute', top: -200, left: '50%', transform: 'translateX(-50%)', width: 800, height: 600, background: 'radial-gradient(ellipse, rgba(46,143,212,0.12) 0%, transparent 65%)', pointerEvents: 'none' }} />
 
         <div className="anim-wrap">
           <div className="crane"><GrueSVG width={CRANE_W} /></div>
@@ -195,15 +215,15 @@ export default function Home() {
 
         <div className="hero-actions">
           <div className="btn-row">
-            <a href="#prix" className="btn-appstore">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="btn-appstore">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
               </svg>
-              Voir les plans
+              Télécharger sur l'App Store
             </a>
             <Link href="/login" className="btn-login">
               Se connecter
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
@@ -229,28 +249,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════════
           COMMENT ÇA MARCHE
-      ═══════════════════════════════════════════════════════ */}
-      <section style={{ background: '#F8FBFF', padding: '96px 24px' }}>
+      ══════════════════════════════════════════════════════ */}
+      <section style={{ background: C.bgLight, padding: '96px 24px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1B5FA8', display: 'block', marginBottom: 12 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.inkXlight, display: 'block', marginBottom: 12 }}>
               Comment ça marche
             </span>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#0D3A6E', letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 16px', maxWidth: 560 }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: C.ink, letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 14px', maxWidth: 520 }}>
               De la photo terrain au rapport en 30 secondes
             </h2>
-            <p style={{ fontSize: 17, color: '#5B87B5', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+            <p style={{ fontSize: 16, color: C.inkLight, maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>
               Pas de formation requise. Vos sous-traitants maîtrisent l'app en 2 minutes.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
             {[
               {
                 num: '01',
-                couleur: '#1B5FA8',
                 icon: '📲',
                 titre: 'Le ST tape son code',
                 desc: 'Votre sous-traitant arrive sur le chantier, ouvre l\'app et tape son code à 6 chiffres. En 5 secondes, il est connecté — sans compte, sans mot de passe.',
@@ -258,7 +277,6 @@ export default function Home() {
               },
               {
                 num: '02',
-                couleur: '#2A9D5C',
                 icon: '📸',
                 titre: 'Photo + note vocale',
                 desc: 'Il sélectionne sa zone sur le plan, prend une photo et enregistre une courte note vocale. Même sans internet — tout se synchronise automatiquement.',
@@ -266,7 +284,6 @@ export default function Home() {
               },
               {
                 num: '03',
-                couleur: '#D4820A',
                 icon: '✨',
                 titre: 'Résumé IA instantané',
                 desc: 'Vous recevez un résumé structuré : travaux effectués, matériaux utilisés, incidents, prochaines étapes. L\'IA transforme la note vocale en rapport professionnel.',
@@ -274,25 +291,21 @@ export default function Home() {
               },
             ].map((step, i) => (
               <div key={i} style={{
-                background: '#fff', borderRadius: 20, overflow: 'hidden',
-                border: '1px solid #E8F0F8', boxShadow: '0 2px 12px rgba(13,58,110,0.06)',
+                background: C.bgWhite, borderRadius: 16, overflow: 'hidden',
+                border: `1px solid ${C.border}`,
+                boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
                 display: 'flex', flexDirection: 'column',
               }}>
-                {/* Screenshot */}
-                <div style={{ background: '#EAF0F8', height: 200, overflow: 'hidden', position: 'relative' }}>
-                  <img
-                    src={step.screen}
-                    alt={step.titre}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
-                  />
-                  <div style={{ position: 'absolute', top: 12, left: 12, background: step.couleur, borderRadius: 10, padding: '4px 10px' }}>
-                    <span style={{ fontSize: 11, fontWeight: 800, color: '#fff', letterSpacing: '0.1em' }}>{step.num}</span>
+                <div style={{ background: C.borderLight, height: 200, overflow: 'hidden', position: 'relative' }}>
+                  <img src={step.screen} alt={step.titre} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+                  <div style={{ position: 'absolute', top: 12, left: 12, background: C.ink, borderRadius: 8, padding: '3px 10px' }}>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: '#fff', letterSpacing: '0.08em' }}>{step.num}</span>
                   </div>
                 </div>
-                <div style={{ padding: '24px 24px 28px' }}>
-                  <div style={{ fontSize: 24, marginBottom: 10 }}>{step.icon}</div>
-                  <h3 style={{ fontSize: 17, fontWeight: 700, color: '#0D3A6E', margin: '0 0 10px', letterSpacing: '-0.2px' }}>{step.titre}</h3>
-                  <p style={{ fontSize: 14, color: '#5B87B5', lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
+                <div style={{ padding: '22px 22px 26px' }}>
+                  <div style={{ fontSize: 22, marginBottom: 10 }}>{step.icon}</div>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: C.ink, margin: '0 0 8px', letterSpacing: '-0.2px' }}>{step.titre}</h3>
+                  <p style={{ fontSize: 14, color: C.inkLight, lineHeight: 1.7, margin: 0 }}>{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -300,117 +313,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          DÉMO VIDÉO / SCREENSHOTS
-          TODO: Remplacer cette section par un <video> ou <iframe YouTube>
-          une fois la vidéo Remotion rendue en MP4.
-          Commande: cd demo-video && npx remotion render TraceChantierDemo
-      ═══════════════════════════════════════════════════════ */}
-      <section style={{ background: '#0D3A6E', padding: '96px 24px', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% -20%, rgba(46,143,212,0.18) 0%, transparent 60%)', pointerEvents: 'none' }} />
+      {/* ══════════════════════════════════════════════════════
+          SCREENSHOTS
+      ══════════════════════════════════════════════════════ */}
+      <section style={{ background: C.ink, padding: '96px 24px', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% -10%, rgba(245,158,11,0.06) 0%, transparent 55%)', pointerEvents: 'none' }} />
         <div style={{ maxWidth: 1100, margin: '0 auto', position: 'relative' }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#4A9FD4', display: 'block', marginBottom: 12 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', display: 'block', marginBottom: 12 }}>
               L'app en action
             </span>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 16px', maxWidth: 560 }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto 14px', maxWidth: 520 }}>
               Dashboard entrepreneur + flow ST
             </h2>
-            <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.55)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>
               Tout ce dont votre équipe a besoin, dans une seule app.
             </p>
           </div>
 
-          {/* Grille screenshots */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gap: 16, alignItems: 'start' }}>
-            {/* Dashboard — grande */}
-            <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-              <img src="/screen-dashboard.png" alt="Dashboard entrepreneur" style={{ width: '100%', display: 'block' }} />
-              <div style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.06)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#7DB8EC', margin: 0 }}>Dashboard entrepreneur</p>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', margin: '3px 0 0' }}>Vue d'ensemble · Photos · Journaux · Équipe</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr', gap: 14, alignItems: 'start' }}>
+            {[
+              { src: '/screen-dashboard.png', alt: 'Dashboard entrepreneur', label: 'Dashboard entrepreneur', sub: 'Vue d\'ensemble · Photos · Journaux · Équipe', mt: 0 },
+              { src: '/screen-st-code.png', alt: 'Connexion ST', label: 'Connexion ST', sub: 'Code 6 chiffres · 5 secondes', mt: 24 },
+              { src: '/screen-journal.png', alt: 'Journal IA', label: 'Journal IA', sub: 'Résumé structuré · Incidents · Avancement', mt: 48 },
+            ].map((s, i) => (
+              <div key={i} style={{ borderRadius: 14, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 8px 28px rgba(0,0,0,0.35)', marginTop: s.mt }}>
+                <img src={s.src} alt={s.alt} style={{ width: '100%', display: 'block' }} />
+                <div style={{ padding: '10px 14px', background: 'rgba(255,255,255,0.04)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                  <p style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)', margin: 0 }}>{s.label}</p>
+                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.28)', margin: '2px 0 0' }}>{s.sub}</p>
+                </div>
               </div>
-            </div>
-            {/* ST code */}
-            <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', marginTop: 24 }}>
-              <img src="/screen-st-code.png" alt="Connexion ST" style={{ width: '100%', display: 'block' }} />
-              <div style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.06)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#7DB8EC', margin: 0 }}>Connexion ST</p>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', margin: '3px 0 0' }}>Code 6 chiffres · 5 secondes</p>
-              </div>
-            </div>
-            {/* Journal */}
-            <div style={{ borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 8px 32px rgba(0,0,0,0.3)', marginTop: 48 }}>
-              <img src="/screen-journal.png" alt="Journal IA" style={{ width: '100%', display: 'block' }} />
-              <div style={{ padding: '12px 16px', background: 'rgba(255,255,255,0.06)', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#7DB8EC', margin: 0 }}>Journal IA</p>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', margin: '3px 0 0' }}>Résumé structuré · Incidents · Avancement</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          FEATURES
-      ═══════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '96px 24px' }}>
+      {/* ══════════════════════════════════════════════════════
+          FONCTIONNALITÉS
+      ══════════════════════════════════════════════════════ */}
+      <section style={{ background: C.bgWhite, padding: '96px 24px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 64 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1B5FA8', display: 'block', marginBottom: 12 }}>
+          <div style={{ textAlign: 'center', marginBottom: 60 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.inkXlight, display: 'block', marginBottom: 12 }}>
               Fonctionnalités
             </span>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#0D3A6E', letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto', maxWidth: 520 }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: C.ink, letterSpacing: '-0.5px', lineHeight: 1.15, margin: '0 auto', maxWidth: 480 }}>
               Tout ce qu'il faut pour documenter sans effort
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20 }}>
             {[
-              {
-                icon: '🎙️',
-                couleur: '#1B5FA8',
-                titre: 'Journal vocal IA',
-                desc: 'Le ST enregistre une note vocale de 30 secondes. L\'IA la transcrit et génère un résumé professionnel structuré : travaux, matériaux, incidents, avancement.',
-              },
-              {
-                icon: '📸',
-                couleur: '#2A9D5C',
-                titre: 'Photos par zone',
-                desc: 'Chaque photo est associée à une zone du plan (fondations, charpente, finition). Filtrez par zone, date, ou type. Téléchargez tout en ZIP en un clic.',
-              },
-              {
-                icon: '🗓️',
-                couleur: '#D4820A',
-                titre: 'Synthèse hebdomadaire',
-                desc: 'Chaque lundi, un rapport IA consolide tous les journaux de la semaine — travaux effectués, incidents, retards, et priorités pour la semaine à venir.',
-              },
-              {
-                icon: '⏱️',
-                couleur: '#6B3FA0',
-                titre: 'Timeline avant/après',
-                desc: 'Glissez le curseur pour comparer l\'état du chantier à n\'importe quelle date. Idéal pour les présentations clients et les réunions de chantier.',
-              },
+              { icon: '🎙️', titre: 'Journal vocal IA', desc: 'Le ST enregistre une note vocale de 30 secondes. L\'IA la transcrit et génère un résumé professionnel : travaux, matériaux, incidents, avancement.' },
+              { icon: '📸', titre: 'Photos par zone', desc: 'Chaque photo est associée à une zone du plan (fondations, charpente, finition). Filtrez, naviguez, téléchargez tout en ZIP en un clic.' },
+              { icon: '🗓️', titre: 'Synthèse hebdomadaire', desc: 'Chaque lundi, un rapport IA consolide tous les journaux de la semaine — travaux effectués, incidents, retards, priorités à venir.' },
+              { icon: '⏱️', titre: 'Timeline avant/après', desc: 'Glissez le curseur pour comparer l\'état du chantier à n\'importe quelle date. Idéal pour les présentations clients et réunions.' },
             ].map((f, i) => (
               <div key={i} style={{
-                borderRadius: 16, padding: '28px 24px',
-                border: '1px solid #E8F0F8',
-                background: '#fff',
-                boxShadow: '0 1px 4px rgba(13,58,110,0.05)',
-                transition: 'box-shadow 0.2s, transform 0.2s',
+                borderRadius: 14, padding: '26px 22px',
+                border: `1px solid ${C.border}`,
+                background: C.bgWhite,
               }}>
-                <div style={{ fontSize: 32, marginBottom: 16 }}>{f.icon}</div>
-                <div style={{ width: 32, height: 3, borderRadius: 2, background: f.couleur, marginBottom: 14 }} />
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0D3A6E', margin: '0 0 10px', letterSpacing: '-0.2px' }}>{f.titre}</h3>
-                <p style={{ fontSize: 14, color: '#5B87B5', lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
+                <div style={{ fontSize: 28, marginBottom: 14 }}>{f.icon}</div>
+                <div style={{ width: 28, height: 3, borderRadius: 2, background: C.ink, marginBottom: 12, opacity: 0.15 }} />
+                <h3 style={{ fontSize: 15, fontWeight: 700, color: C.ink, margin: '0 0 8px', letterSpacing: '-0.2px' }}>{f.titre}</h3>
+                <p style={{ fontSize: 13, color: C.inkLight, lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
               </div>
             ))}
           </div>
 
-          {/* Feature extras */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 48 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 10, marginTop: 44 }}>
             {['Mode hors-ligne', 'Export PDF & CSV', 'Portail client', 'Dashboard web', 'Codes QR partagés', 'Support Canada'].map(tag => (
-              <span key={tag} style={{ fontSize: 13, fontWeight: 600, color: '#1B5FA8', background: '#EFF6FF', borderRadius: 20, padding: '6px 14px', border: '1px solid #DBEAFE' }}>
+              <span key={tag} style={{
+                fontSize: 13, fontWeight: 500, color: C.inkMid,
+                background: C.bgLight, borderRadius: 20,
+                padding: '6px 14px', border: `1px solid ${C.border}`,
+              }}>
                 ✓ {tag}
               </span>
             ))}
@@ -418,114 +397,139 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          PRIX
-      ═══════════════════════════════════════════════════════ */}
-      <section id="prix" style={{ background: 'linear-gradient(180deg, #F8FBFF 0%, #EEF5FC 100%)', padding: '96px 24px' }}>
+      {/* ══════════════════════════════════════════════════════
+          PRIX — affichage seulement
+      ══════════════════════════════════════════════════════ */}
+      <section id="prix" style={{ background: C.bgLight, padding: '96px 24px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1B5FA8', display: 'block', marginBottom: 12 }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.inkXlight, display: 'block', marginBottom: 12 }}>
               Tarifs
             </span>
-            <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#0D3A6E', letterSpacing: '-0.5px', margin: '0 0 16px' }}>
+            <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: C.ink, letterSpacing: '-0.5px', margin: '0 0 14px' }}>
               Simple et transparent
             </h2>
-            <p style={{ fontSize: 17, color: '#5B87B5', margin: '0 auto', maxWidth: 420, lineHeight: 1.7 }}>
+            <p style={{ fontSize: 16, color: C.inkLight, margin: '0 auto', maxWidth: 380, lineHeight: 1.7 }}>
               14 jours d'essai gratuit sur tous les plans. Aucune carte requise.
             </p>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E8F2FC', borderRadius: 20, padding: '7px 16px', marginTop: 20, border: '1px solid rgba(27,95,168,0.2)' }}>
-              <span style={{ fontSize: 13, color: '#1B5FA8', fontWeight: 600 }}>💰 Annuel — économisez 2 mois</span>
-            </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, alignItems: 'start' }}>
-            {PLANS.map((plan, i) => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 18, alignItems: 'start' }}>
+            {PLANS.map((plan) => (
               <div key={plan.id} style={{
-                borderRadius: 20, overflow: 'hidden',
-                border: plan.highlight ? `2px solid ${plan.couleur}` : '1px solid #D0E4F4',
-                background: '#fff',
-                boxShadow: plan.highlight ? `0 8px 32px rgba(27,95,168,0.18)` : '0 2px 8px rgba(13,58,110,0.06)',
-                transform: plan.highlight ? 'translateY(-8px)' : 'none',
+                borderRadius: 16, overflow: 'hidden',
+                border: plan.highlight ? `2px solid ${C.ink}` : `1px solid ${C.border}`,
+                background: C.bgWhite,
+                boxShadow: plan.highlight ? '0 8px 28px rgba(0,0,0,0.1)' : '0 1px 4px rgba(0,0,0,0.04)',
+                transform: plan.highlight ? 'translateY(-6px)' : 'none',
                 position: 'relative',
+                userSelect: 'none',
               }}>
                 {plan.badge && (
-                  <div style={{ position: 'absolute', top: 16, right: 16, background: plan.couleur, color: '#fff', fontSize: 11, fontWeight: 800, borderRadius: 8, padding: '3px 10px', letterSpacing: '0.05em' }}>
+                  <div style={{
+                    position: 'absolute', top: 14, right: 14,
+                    background: C.accent, color: '#fff',
+                    fontSize: 10, fontWeight: 800, borderRadius: 6,
+                    padding: '3px 8px', letterSpacing: '0.06em', textTransform: 'uppercase',
+                  }}>
                     {plan.badge}
                   </div>
                 )}
-                {/* Header */}
-                <div style={{ padding: '28px 28px 20px', borderBottom: '1px solid #F3F4F6', background: plan.highlight ? '#EFF6FF' : '#fff' }}>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: plan.couleur, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 6px' }}>
+                <div style={{ padding: '24px 24px 18px', borderBottom: `1px solid ${C.borderLight}`, background: plan.highlight ? '#F9FAFB' : C.bgWhite }}>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: C.inkLight, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 8px' }}>
                     {plan.label}
                   </p>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 4 }}>
-                    <span style={{ fontSize: 44, fontWeight: 800, color: '#0D3A6E', letterSpacing: '-1px', lineHeight: 1 }}>{plan.prix}$</span>
-                    <span style={{ fontSize: 14, color: '#9BBAD6', fontWeight: 500 }}>/mois</span>
+                    <span style={{ fontSize: 42, fontWeight: 800, color: C.ink, letterSpacing: '-1px', lineHeight: 1 }}>{plan.prix}$</span>
+                    <span style={{ fontSize: 13, color: C.inkXlight, fontWeight: 400 }}>/mois</span>
                   </div>
-                  <p style={{ fontSize: 12, color: '#9BBAD6', margin: '4px 0 0' }}>
+                  <p style={{ fontSize: 12, color: C.inkXlight, margin: '4px 0 0' }}>
                     ou {plan.prixAnnuel}$/mois · facturé annuellement
                   </p>
                 </div>
-                {/* Features */}
-                <div style={{ padding: '20px 28px 28px' }}>
-                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 9 }}>
+                <div style={{ padding: '18px 24px 24px' }}>
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
                     {plan.features.map((f, j) => (
-                      <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 9, fontSize: 13, color: '#374151' }}>
-                        <span style={{ color: '#059669', fontWeight: 700, marginTop: 1, flexShrink: 0 }}>✓</span>
+                      <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: 8, fontSize: 13, color: C.inkMid }}>
+                        <span style={{ color: C.checkGreen, fontWeight: 700, marginTop: 1, flexShrink: 0 }}>✓</span>
                         {f}
                       </li>
                     ))}
                   </ul>
-                  <Link href="/login" style={{
-                    display: 'block', textAlign: 'center', marginTop: 24,
-                    padding: '13px', borderRadius: 12, fontSize: 14, fontWeight: 700,
-                    background: plan.highlight ? plan.couleur : '#fff',
-                    color: plan.highlight ? '#fff' : plan.couleur,
-                    border: `2px solid ${plan.couleur}`,
-                    textDecoration: 'none',
-                    transition: 'opacity 0.15s',
-                  }}>
-                    {plan.cta}
-                  </Link>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Add-on note */}
-          <p style={{ textAlign: 'center', fontSize: 13, color: '#9BBAD6', marginTop: 32 }}>
+          {/* CTA App Store sous les plans */}
+          <div style={{
+            marginTop: 40, padding: '24px 28px',
+            background: C.bgWhite, border: `1px solid ${C.border}`,
+            borderRadius: 14, maxWidth: 600, margin: '40px auto 0',
+            display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap',
+          }}>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <p style={{ fontSize: 15, fontWeight: 600, color: C.ink, margin: '0 0 4px' }}>
+                Prêt à commencer votre essai gratuit ?
+              </p>
+              <p style={{ fontSize: 13, color: C.inkLight, margin: 0, lineHeight: 1.5 }}>
+                La création de compte se fait depuis l'application iOS. Téléchargez-la, créez votre entreprise et revenez vous connecter ici.
+              </p>
+            </div>
+            <a
+              href={APP_STORE_URL}
+              target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 9,
+                background: C.ink, color: '#fff', flexShrink: 0,
+                padding: '11px 20px', borderRadius: 10,
+                fontSize: 14, fontWeight: 600, textDecoration: 'none',
+                transition: 'background 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = C.inkMid)}
+              onMouseLeave={e => (e.currentTarget.style.background = C.ink)}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              Télécharger sur l'App Store
+            </a>
+          </div>
+
+          <p style={{ textAlign: 'center', fontSize: 12, color: C.inkXlight, marginTop: 20 }}>
             Besoin de plus d'admins ? Ajoutez-en à 15$/mois chacun.
           </p>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════════
           FAQ
-      ═══════════════════════════════════════════════════════ */}
-      <section style={{ background: '#fff', padding: '96px 24px' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#1B5FA8', display: 'block', marginBottom: 12 }}>
+      ══════════════════════════════════════════════════════ */}
+      <section style={{ background: C.bgWhite, padding: '96px 24px' }}>
+        <div style={{ maxWidth: 680, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.inkXlight, display: 'block', marginBottom: 12 }}>
               Questions fréquentes
             </span>
-            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 800, color: '#0D3A6E', letterSpacing: '-0.5px', margin: 0 }}>
+            <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 800, color: C.ink, letterSpacing: '-0.5px', margin: 0 }}>
               Tout ce que vous voulez savoir
             </h2>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {FAQ.map((item, i) => (
-              <details key={i} style={{ borderRadius: 14, border: '1px solid #E8F0F8', overflow: 'hidden' }}>
+              <details key={i} style={{ borderRadius: 12, border: `1px solid ${C.border}`, overflow: 'hidden' }}>
                 <summary style={{
-                  padding: '18px 20px', fontSize: 15, fontWeight: 600, color: '#0D3A6E', cursor: 'pointer',
-                  listStyle: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  userSelect: 'none', background: '#fff',
+                  padding: '16px 18px', fontSize: 14, fontWeight: 600, color: C.ink,
+                  cursor: 'pointer', listStyle: 'none',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  userSelect: 'none', background: C.bgWhite,
                 }}>
                   {item.q}
-                  <span style={{ fontSize: 20, color: '#9BBAD6', flexShrink: 0, marginLeft: 12, fontWeight: 400 }}>+</span>
+                  <span style={{ fontSize: 18, color: C.inkXlight, flexShrink: 0, marginLeft: 12, fontWeight: 300 }}>+</span>
                 </summary>
-                <div style={{ padding: '0 20px 18px', background: '#F8FBFF', borderTop: '1px solid #E8F0F8' }}>
-                  <p style={{ fontSize: 14, color: '#5B87B5', lineHeight: 1.75, margin: '16px 0 0' }}>{item.a}</p>
+                <div style={{ padding: '0 18px 16px', background: C.bgLight, borderTop: `1px solid ${C.border}` }}>
+                  <p style={{ fontSize: 14, color: C.inkLight, lineHeight: 1.75, margin: '14px 0 0' }}>{item.a}</p>
                 </div>
               </details>
             ))}
@@ -533,63 +537,81 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════════
           CTA FINAL
-      ═══════════════════════════════════════════════════════ */}
-      <section style={{ background: 'linear-gradient(135deg, #0D3A6E 0%, #1B5FA8 100%)', padding: '80px 24px' }}>
-        <div style={{ maxWidth: 640, margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 'clamp(26px, 4vw, 38px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', margin: '0 0 16px', lineHeight: 1.2 }}>
+      ══════════════════════════════════════════════════════ */}
+      <section style={{ background: C.ink, padding: '80px 24px' }}>
+        <div style={{ maxWidth: 580, margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 4vw, 36px)', fontWeight: 800, color: '#fff', letterSpacing: '-0.5px', margin: '0 0 14px', lineHeight: 1.2 }}>
             Commencez votre essai gratuit aujourd'hui
           </h2>
-          <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.65)', margin: '0 0 36px', lineHeight: 1.7 }}>
-            14 jours sans engagement, sans carte de crédit. Votre premier chantier configuré en moins de 5 minutes.
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', margin: '0 0 32px', lineHeight: 1.7 }}>
+            14 jours sans engagement. Votre premier chantier configuré en moins de 5 minutes.
           </p>
-          <Link href="/login" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            background: '#fff', color: '#0D3A6E',
-            borderRadius: 14, padding: '16px 36px',
-            fontSize: 16, fontWeight: 700,
-            textDecoration: 'none',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-            transition: 'opacity 0.15s',
-          }}>
-            Créer mon compte gratuit
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center', alignItems: 'center' }}>
+            <a
+              href={APP_STORE_URL}
+              target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 9,
+                background: '#fff', color: C.ink,
+                borderRadius: 12, padding: '13px 24px',
+                fontSize: 15, fontWeight: 700,
+                textDecoration: 'none',
+                boxShadow: '0 2px 16px rgba(0,0,0,0.25)',
+                transition: 'opacity 0.15s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}
+              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              Télécharger sur l'App Store
+            </a>
+            <Link href="/login" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.15)',
+              color: 'rgba(255,255,255,0.7)', borderRadius: 12, padding: '13px 22px',
+              fontSize: 14, fontWeight: 500, textDecoration: 'none',
+              transition: 'background 0.15s',
+            }}>
+              Se connecter
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* ══════════════════════════════════════════════════════
           FOOTER
-      ═══════════════════════════════════════════════════════ */}
-      <footer style={{ background: '#071c36', padding: '40px 24px 32px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 20 }}>
+      ══════════════════════════════════════════════════════ */}
+      <footer style={{ background: '#0A0F1A', padding: '36px 24px 28px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(27,95,168,0.3)', border: '1px solid rgba(27,95,168,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <svg width="14" height="14" viewBox="0 0 108 160" fill="none">
-                <rect x="51" y="44" width="12" height="80" rx="2" fill="#4A9FD4" />
-                <rect x="10" y="44" width="92" height="8" rx="2" fill="#4A9FD4" opacity="0.7" />
-                <line x1="57" y1="16" x2="95" y2="44" stroke="#4A9FD4" strokeWidth="2" opacity="0.6" />
-                <line x1="57" y1="16" x2="20" y2="44" stroke="#4A9FD4" strokeWidth="2" opacity="0.5" />
+            <div style={{ width: 30, height: 30, borderRadius: 8, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <svg width="13" height="13" viewBox="0 0 108 160" fill="none">
+                <rect x="51" y="44" width="12" height="80" rx="2" fill="white" opacity="0.7" />
+                <rect x="10" y="44" width="92" height="8" rx="2" fill="white" opacity="0.4" />
+                <line x1="57" y1="16" x2="95" y2="44" stroke="white" strokeWidth="2" opacity="0.35" />
+                <line x1="57" y1="16" x2="20" y2="44" stroke="white" strokeWidth="2" opacity="0.3" />
               </svg>
             </div>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>TraceChantier</div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>© {new Date().getFullYear()} Tous droits réservés</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.8)' }}>TraceChantier</div>
+              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)' }}>© {new Date().getFullYear()} · Montréal, QC</div>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
             {[
               { href: '/cgu', label: 'Conditions d\'utilisation' },
               { href: '/confidentialite', label: 'Confidentialité' },
               { href: '/support', label: 'Support' },
               { href: '/login', label: 'Se connecter' },
             ].map(link => (
-              <a key={link.href} href={link.href} style={{ fontSize: 13, color: 'rgba(255,255,255,0.38)', textDecoration: 'none', transition: 'color 0.15s' }}
-                onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.8)'}
-                onMouseLeave={e => (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.38)'}>
+              <a key={link.href} href={link.href}
+                style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'color 0.15s' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}>
                 {link.label}
               </a>
             ))}
