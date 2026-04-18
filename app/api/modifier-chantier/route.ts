@@ -44,15 +44,17 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     date_debut: date_debut || null,
   }).eq('id', chantierId)
 
-  // Supprimer zones marquées
+  // Supprimer zones marquées — filtrer par chantier_id pour éviter l'IDOR
   if (Array.isArray(zonesSupprimes) && zonesSupprimes.length > 0) {
-    await supabase.from('zones').delete().in('id', zonesSupprimes)
+    await supabase.from('zones').delete()
+      .in('id', zonesSupprimes)
+      .eq('chantier_id', chantierId)
   }
 
   // Upsert/insert zones
   if (Array.isArray(zones) && zones.length > 0) {
     const existantes = zones.filter((z: any) => z.id).map((z: any, i: number) => ({
-      id: z.id, nom: z.nom, couleur: z.couleur, ordre: i,
+      id: z.id, chantier_id: chantierId, nom: z.nom, couleur: z.couleur, ordre: i,
     }))
     const nouvelles = zones.filter((z: any) => !z.id).map((z: any, i: number) => ({
       chantier_id: chantierId, nom: z.nom, couleur: z.couleur,
