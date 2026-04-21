@@ -215,20 +215,22 @@ export default function Home() {
 
         <div className="hero-actions">
           <div className="btn-row">
-            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="btn-appstore">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-              </svg>
-              Télécharger sur l'App Store
-            </a>
-            <Link href="/login" className="btn-login">
-              Se connecter
+            <Link href="/inscription" className="btn-appstore">
+              Créer un compte gratuit
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
+            <Link href="/login" className="btn-login">
+              Se connecter
+            </Link>
           </div>
-          <span className="trial-note">14 jours d'essai gratuit · Aucune carte requise</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <span className="trial-note">14 jours d'essai gratuit · Aucune carte requise</span>
+            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className="trial-note" style={{ textDecoration: 'none', opacity: 0.5 }}>
+              · Aussi disponible sur l'App Store
+            </a>
+          </div>
         </div>
 
         <div className="hero-stats">
@@ -352,7 +354,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* CTA App Store sous les plans */}
+          {/* CTA inscription sous les plans */}
           <div style={{
             marginTop: 40, padding: '24px 28px',
             background: C.bgWhite, border: `1px solid ${C.border}`,
@@ -364,27 +366,20 @@ export default function Home() {
                 Prêt à commencer votre essai gratuit ?
               </p>
               <p style={{ fontSize: 13, color: C.inkLight, margin: 0, lineHeight: 1.5 }}>
-                La création de compte se fait depuis l'application iOS. Téléchargez-la, créez votre entreprise et revenez vous connecter ici.
+                Créez votre compte ici en 2 minutes, puis téléchargez l'app iOS pour documenter vos chantiers.
               </p>
             </div>
-            <a
-              href={APP_STORE_URL}
-              target="_blank" rel="noopener noreferrer"
+            <Link
+              href="/inscription"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 9,
                 background: C.ink, color: '#fff', flexShrink: 0,
                 padding: '11px 20px', borderRadius: 10,
                 fontSize: 14, fontWeight: 600, textDecoration: 'none',
-                transition: 'background 0.15s',
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = C.inkMid)}
-              onMouseLeave={e => (e.currentTarget.style.background = C.ink)}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-              </svg>
-              Télécharger sur l'App Store
-            </a>
+              Créer un compte gratuit →
+            </Link>
           </div>
 
           <p style={{ textAlign: 'center', fontSize: 12, color: C.inkXlight, marginTop: 20 }}>
@@ -440,36 +435,30 @@ export default function Home() {
             14 jours sans engagement. Votre premier chantier configuré en moins de 5 minutes.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center', alignItems: 'center' }}>
-            <a
-              href={APP_STORE_URL}
-              target="_blank" rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 9,
-                background: '#fff', color: C.ink,
-                borderRadius: 12, padding: '13px 24px',
-                fontSize: 15, fontWeight: 700,
-                textDecoration: 'none',
-                boxShadow: '0 2px 16px rgba(0,0,0,0.25)',
-                transition: 'opacity 0.15s',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.opacity = '0.9')}
-              onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-              </svg>
-              Télécharger sur l'App Store
-            </a>
+            <Link href="/inscription" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 9,
+              background: '#fff', color: C.ink,
+              borderRadius: 12, padding: '13px 24px',
+              fontSize: 15, fontWeight: 700,
+              textDecoration: 'none',
+              boxShadow: '0 2px 16px rgba(0,0,0,0.25)',
+            }}>
+              Créer un compte gratuit →
+            </Link>
             <Link href="/login" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               background: 'rgba(255,255,255,0.07)', border: '1.5px solid rgba(255,255,255,0.15)',
               color: 'rgba(255,255,255,0.7)', borderRadius: 12, padding: '13px 22px',
               fontSize: 14, fontWeight: 500, textDecoration: 'none',
-              transition: 'background 0.15s',
             }}>
               Se connecter
             </Link>
           </div>
+          <p style={{ marginTop: 20, fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>
+            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}>
+              Aussi disponible sur l'App Store →
+            </a>
+          </p>
         </div>
       </section>
 
@@ -494,10 +483,11 @@ export default function Home() {
           </div>
           <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
             {[
+              { href: '/inscription', label: 'Créer un compte' },
+              { href: '/login', label: 'Se connecter' },
               { href: '/cgu', label: 'Conditions d\'utilisation' },
               { href: '/confidentialite', label: 'Confidentialité' },
               { href: '/support', label: 'Support' },
-              { href: '/login', label: 'Se connecter' },
             ].map(link => (
               <a key={link.href} href={link.href}
                 style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', textDecoration: 'none', transition: 'color 0.15s' }}
