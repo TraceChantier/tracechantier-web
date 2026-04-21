@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { PLANS, PLANS_UI, LOOKUP_KEYS } from '@/lib/plans'
@@ -22,10 +23,36 @@ const C = {
 
 // ── Composant principal ──────────────────────────────────────────────────────
 export default function InscriptionPage() {
+  const searchParams = useSearchParams()
+  const abonnementParam = searchParams.get('abonnement')
+
   const [etape, setEtape] = useState(1)
   const [soumis, setSoumis] = useState(false)
   const [chargement, setChargement] = useState(false)
   const [erreur, setErreur] = useState<string | null>(null)
+
+  // Retour depuis Stripe après abandon — compte créé mais pas d'abonnement
+  if (abonnementParam === 'cancel') {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: C.bg, fontFamily: "'DM Sans','Segoe UI',system-ui,sans-serif", padding: 24 }}>
+        <div style={{ maxWidth: 420, width: '100%', textAlign: 'center' }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+          <h1 style={{ fontSize: 22, fontWeight: 800, color: C.ink, marginBottom: 12 }}>Abonnement non complété</h1>
+          <p style={{ fontSize: 14, color: C.inkLight, lineHeight: 1.7, marginBottom: 28 }}>
+            Votre compte a bien été créé, mais vous n'avez pas finalisé votre abonnement Stripe.
+            Connectez-vous pour compléter l'activation de votre compte.
+          </p>
+          <Link href="/login" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: C.accent, color: '#fff', borderRadius: 10, padding: '13px 24px', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
+            Se connecter et activer →
+          </Link>
+          <p style={{ marginTop: 16, fontSize: 12, color: C.inkLight }}>
+            Pas encore de compte ?{' '}
+            <Link href="/inscription" style={{ color: C.accent, fontWeight: 600 }}>Recommencer l'inscription</Link>
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   // Étape 1 — Profil
   const [prenomNom, setPrenomNom] = useState('')
@@ -112,7 +139,7 @@ export default function InscriptionPage() {
       window.location.href = '/dashboard'
     } catch (err: any) {
       const msg = err.message?.includes('User already registered')
-        ? 'Un compte existe déjà avec cette adresse courriel.'
+        ? 'Un compte existe déjà avec cette adresse courriel. Connectez-vous sur /login pour compléter votre abonnement.'
         : err.message ?? 'Une erreur est survenue.'
       setErreur(msg)
       setSoumis(false)
@@ -212,7 +239,10 @@ export default function InscriptionPage() {
           {/* Erreur globale */}
           {erreur && (
             <div style={{ padding: '12px 14px', borderRadius: 10, background: C.redBg, color: C.red, border: `1px solid #FECACA`, fontSize: 13, marginBottom: 16 }}>
-              {erreur}
+              {erreur.includes('/login')
+                ? <>{erreur.split('/login')[0]} <Link href="/login" style={{ color: C.red, fontWeight: 700, textDecoration: 'underline' }}>Se connecter →</Link></>
+                : erreur
+              }
             </div>
           )}
 
