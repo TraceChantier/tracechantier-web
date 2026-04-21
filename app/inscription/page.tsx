@@ -129,7 +129,7 @@ export default function InscriptionPage() {
           }
         )
         const json = await res.json()
-        if (res.ok && json.url) {
+        if (res.ok && json.url && json.url.startsWith('https://checkout.stripe.com/')) {
           window.location.href = json.url
           return
         }

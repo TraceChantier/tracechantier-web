@@ -12,12 +12,13 @@ interface ZoneInput {
   ordre: number
 }
 
-// Plans limites — dupliqués ici pour ne pas importer depuis lib/plans (client-only)
+// Source de vérité : lib/plans.ts
 const CHANTIERS_MAX: Record<string, number> = {
-  demarrage: 2,
-  pro: 10,
-  maitre: -1,    // illimité
-  gratuit: -1,   // trial : pas de limite stricte côté web (trial = 14j)
+  gratuit:    0,
+  demarrage:  3,
+  pro:        10,
+  maitre:     10,
+  entreprise: 20,
 }
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
