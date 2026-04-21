@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   const { pathname } = request.nextUrl
 
-  const publicPages = ['/', '/login', '/cgu', '/confidentialite', '/support']
+  const publicPages = ['/', '/login', '/inscription', '/cgu', '/confidentialite', '/support']
   const publicExtensions = ['.mp4', '.mp3', '.pdf', '.svg', '.png', '.jpg', '.jpeg', '.gif', '.webp', '.woff', '.woff2', '.ttf', '.ico']
   const isPublicFile = publicExtensions.some(ext => pathname.endsWith(ext))
 
