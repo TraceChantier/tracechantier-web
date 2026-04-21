@@ -96,6 +96,8 @@ export default function InscriptionPage() {
               mode: 'checkout',
               price_lookup_key: lookupKey,
               with_trial: true,
+              success_url: `${window.location.origin}/dashboard?abonnement=success`,
+              cancel_url:  `${window.location.origin}/inscription?abonnement=cancel`,
             }),
           }
         )
