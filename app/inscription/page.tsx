@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -23,6 +23,14 @@ const C = {
 
 // ── Composant principal ──────────────────────────────────────────────────────
 export default function InscriptionPage() {
+  return (
+    <Suspense>
+      <InscriptionInner />
+    </Suspense>
+  )
+}
+
+function InscriptionInner() {
   const searchParams = useSearchParams()
   const abonnementParam = searchParams.get('abonnement')
 
