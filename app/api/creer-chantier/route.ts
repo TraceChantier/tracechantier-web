@@ -76,6 +76,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   const plan_chemin: string | null = body.plan_chemin || null
   const zones: ZoneInput[] = Array.isArray(body.zones) ? body.zones : []
 
+  // Générer une URL signée 1 an si un plan est fourni
+  let plan_url: string | null = null
+  if (plan_chemin) {
+    const UN_AN = 365 * 24 * 3600
+    const { data: signed } = await supabase.storage
+      .from('plans-chantier')
+      .createSignedUrl(plan_chemin, UN_AN)
+    plan_url = signed?.signedUrl ?? null
+  }
+
   // Créer le chantier — code_acces est généré par trigger DB
   const { data: chantier, error: errChantier } = await supabase
     .from('chantiers')
@@ -84,7 +94,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       nom,
       adresse: adresse || null,
       description: description || null,
-      plan_url: plan_chemin,  // chemin storage, pas URL signée
+      plan_url,
       date_debut,
     })
     .select('id, code_acces, nom')
